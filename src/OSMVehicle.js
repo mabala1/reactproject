@@ -1,147 +1,217 @@
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { useState } from 'react';
+import css from "./App.css"
+const useStyles = makeStyles(theme => ({
+  formControl: {
+    margin: -1,
+    width: 225,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
-import React, { Fragment } from "react";
-import {ButtonToolbar} from 'react-bootstrap';
-import { Button} from 'react-bootstrap';
+export default function OSMVehicle() {
+  const classes = useStyles();
+  const [trucktype, settrucktype] = React.useState('');
+  const [vendor,setVendor ] = React.useState('');
 
-class OSMVehicle extends React.Component {
- constructor(props){
-      super(props);
-      this.state={
-        doc : '',
-        date : '',
-        truck : '',
-        triptype : '',
-        drivername : '',
-        phone : '',
-        emptywt : '',
-        loadedwt : '',
-        dl : '',
-        sto : '',
-   		transport_names: [],
-   		truck_type: [],
-   		transport_name:'',
-   		truck_name:''
-     }
-   }
+  const inputLabel = React.useRef(null);
+  const [labelWidth, setLabelWidth] = React.useState(0);
+  const [reg, setreg] = useState('');
+  const [regdate, setregdate] = useState('');
+  const [truck, settruck] = useState('');
+  const [triptype, setTripType] = useState('');
+  const [name, setname] = useState('');
+  const [phone, setphone] = useState('');
+  const [empty, setempty] = useState('');
+  const [loaded, setloaded] = useState('');
+  const [dl, setdl] = useState('');
+  const [sto, setsto] = useState('');
 
-    ChangeHandler = (e) =>{
-      this.setState({[e.target.name]: e.target.value})
+  React.useEffect(() => {
+    setLabelWidth(inputLabel.current.offsetWidth);
+  }, []);
 
-     }
+  const handletrucktype = event => {
+    settrucktype(event.target.value);
+  };
+   const handlevendor = event => {
+    setVendor(event.target.value);
+  };
 
-    checklist = e =>{
-     	this.props.history.push("/checklist")
-    
-    }
+  const checklist = event => {
+    window.location.href = '/checklist'
+  };
 
-  onClear = (event) => {
-    this.setState({doc: "",date: "",truck:"",triptype:"",drivername:"",phone:"",emptywt:"",loadedwt:"",dl:"",sto:"",transport_name:"",truck_name:""});
+
+   const Onclear = (event) => {
+     setreg('');
+     setregdate('');
+     settruck('');
+     settrucktype('');
+     setTripType('');
+     setname('');
+     setphone('');
+     setVendor('');
+     setempty('');
+     setloaded('');
+     setdl('');
+     setsto('');
+
   }
 
-  onChangetransport = (event) => {
-    this.setState({transport_name: event.target.value});
-  
-  }
-
-   onChangetruck = (event) => {
-    this.setState({truck_name: event.target.value});
-  }
-
-   componentDidMount() {
-   	const transport_names = ["madhu", "bala", "deepak", "amala"]
-   	const truck_type = ["car", "cycle", "auto", "truck"]
-   	this.setState({transport_names: transport_names})
-   	this.setState({truck_type: truck_type})
-    }
-
-
-
-
- render() {
- 	 console.log(this.state.transport_name)
- 	 console.log(this.state.truck_name)
- 	let vendor = ['volvo', 'saab', 'ope1', 'audi']
-    return (
-     <Fragment>
-     <div className="row"  style={{margin: "20px"}}>
-      <div className="col-md-6">
-        <label htmlFor="example1">Registration Doc#</label>
-        <input  type="text" name='doc' value={this.state.doc} onChange={this.ChangeHandler} id="example1" className="form-control form-control" style={{width: "200px"}}/>
-      </div>
-      <div className="col-md-6">
-        <label htmlFor="example2">Registration Date</label>
-        <input type="text" name='date' value={this.state.date} onChange={this.ChangeHandler} id="example2" className="form-control form-control"  style={{width: "200px"}} />
-      </div>
-      <div className="col-md-6">
-        <label htmlFor="example3">Transport Vendor</label>
-        <select id="vendor" className="form-control form-control" style={{width: "200px"}}   onChange={this.onChangetransport} >
-          <option value=" " selected>Select</option>
-            {this.state.transport_names.map((transport)=>(
-            	<option value={transport} checked={this.state.transport_name}>{transport}</option>
-            	))}
-        </select>
-      </div>
-      <div className="col-md-6">
-        <label htmlFor="example3">Truck Number</label>
-        <input type="text" name='truck' onChange={this.ChangeHandler} value={this.state.truck}  id="example3" className="form-control form-control"  style={{width: "200px"}} />
-      </div>
-      </div>
-       <div className="row"  style={{margin: "20px"}}>
-      <div className="col-md-6">
-        <label htmlFor="example1">Truck Type</label>
-         <select id="truck" className="form-control form-control" style={{width: "200px"}}   onChange={this.onChangetruck} >
-           <option value=" " selected>Select</option>
-            {this.state.truck_type.map((trucktype)=>(
-            	<option value={trucktype}  checked={this.state.truck_name}>{trucktype}</option>
-            ))}
-        </select>
-      </div>
-      <div className="col-md-6">
-        <label htmlFor="example2">Trip Type</label>
-        <input type="text" name='triptype' onChange={this.ChangeHandler} value={this.state.triptype}  id="example2" className="form-control form-control"  style={{width: "200px"}} />
-      </div>
-      <div className="col-md-6">
-        <label htmlFor="example3">Driver Name</label>
-        <input type="text" name='drivername' onChange={this.ChangeHandler} value={this.state.drivername}  id="example3" className="form-control form-control"  style={{width: "200px"}} />
-      </div>
-      <div className="col-md-6">
-        <label htmlFor="example3">Driver Phone</label>
-        <input type="text" name='phone' value={this.state.phone} onChange={this.ChangeHandler}  id="example3" className="form-control form-control"  style={{width: "200px"}} />
-      </div>
-       <div className="col-md-6">
-        <label htmlFor="example3">Vehicle Empty Wt in Kg</label>
-        <input type="text" name='emptywt' onChange={this.ChangeHandler} value={this.state.emptywt}  id="example3" className="form-control form-control"  style={{width: "200px"}} />
-      </div>
-      <div className="col-md-6">
-        <label htmlFor="example3">Vehicle Loaded Wt</label>
-        <input type="text" name='loadedwt' value={this.state.loadedwt} onChange={this.ChangeHandler}  id="example3" className="form-control form-control"  style={{width: "200px"}} />
-      </div>
-       <div className="col-md-6">
-        <label htmlFor="example3">DL Number</label>
-        <input type="text" name='dl' onChange={this.ChangeHandler} value={this.state.dl}  id="example3" className="form-control form-control"  style={{width: "200px"}} />
-      </div>
-      <div className="col-md-6">
-        <label htmlFor="example3">STO Invoice#</label>
-        <input type="text" name='sto' value={this.state.sto} onChange={this.ChangeHandler}  id="example3" className="form-control form-control"  style={{width: "200px"}} />
-      </div>
-      </div>
-      <div className="row" style={{float: "right"}}>
-        <ButtonToolbar>
-          <Button   style={{margin: "20px"}} variant="primary" onClick={this.onClear}>Clear</Button>
-          <Button   style={{margin: "20px"}} variant="primary">Edit</Button>
-          <Button  style={{margin: "20px"}} variant="primary">Submit</Button>
-          <Button style={{margin: "20px"}} variant="primary">Exit</Button>
-        </ButtonToolbar>
-      </div>
-        <div className="row" style={{float: "left"}}>
-            <ButtonToolbar>
-			    <Button  style={{margin: "20px"}} onClick={this.checklist} variant="primary">Check List</Button>
-			    <Button style={{margin: "20px"}} variant="primary">Barcode</Button>
-            </ButtonToolbar>
-        </div>
-    </Fragment>
-
-    );
-  }
+  return (
+     <form  noValidate autoComplete="off">
+    <Grid container justify="center" className="mainContainer" >
+      <Grid item  xs={6} sm={8} md={8} lg={8} >
+        <Card>
+          <CardContent>   
+              <Grid container spacing={6} >
+                <Grid item xs={12} sm={6} md={6} lg={6} align='right'>
+                  <TextField id="standard-basic" label="Registration Doc"   value={reg} onInput={e => setreg(e.target.value)}  variant="outlined"   
+                  />  
+                </Grid>
+                <Grid item xs={12} sm={6} md={6} lg={6} >
+                  <TextField id="standard-basic" label="Registration Date"   value={regdate} onInput={e => setregdate(e.target.value)}  variant="outlined"   
+                  />     
+                </Grid>
+              </Grid>
+            <Grid container spacing={6}>
+              <Grid item xs={12} sm={6} md={6} lg={6} align='right'>
+                <TextField id="standard-basic" label="Truck Number"  variant="outlined" value={truck} onInput={e => settruck(e.target.value)}
+              />
+              </Grid>
+              <Grid item xs={12} sm={6} md={6} lg={6}>
+                 <FormControl variant="outlined" className={classes.formControl} >
+                  <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+                  Transport Vendor
+                    
+                  </InputLabel>
+                 <Select
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={vendor}
+                    onChange={handlevendor}
+                    labelWidth={labelWidth}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                 </Select>
+                </FormControl>  
+              </Grid>
+            </Grid>
+            <Grid container spacing={6}>
+              <Grid item xs={12} sm={6} md={6} lg={6} align='right'>
+                <TextField id="standard-basic" label="Trip Type" variant="outlined" value={triptype} onInput={e => setTripType(e.target.value)}
+               />
+             </Grid>
+              <Grid item xs={12} sm={6} md={6} lg={6} >
+               <FormControl variant="outlined" className={classes.formControl} >
+                <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+                Truck Type
+                  
+                </InputLabel>
+               <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  value={trucktype}
+                  onChange={handletrucktype}
+                  labelWidth={labelWidth}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
+               </Select>
+              </FormControl>  
+            
+              </Grid>
+            </Grid>
+            <Grid container spacing={6}>
+              <Grid item xs={12} sm={6} md={6} lg={6} align='right'>
+                <TextField id="standard-basic" label="Driver Name" variant="outlined"
+              value={name} onInput={e => setname(e.target.value)}/>
+              </Grid>
+             <Grid item xs={12} sm={6} md={6} lg={6}>
+                <TextField id="standard-basic" value={phone} onInput={e => setphone(e.target.value)}label="Driver Phone"variant="outlined"  
+                />
+              </Grid>
+            </Grid>
+            <Grid container spacing={6}>
+              <Grid item xs={12} sm={6} md={6} lg={6} align='right'>
+                <TextField id="standard-basic" label="Vehicle empty Wt in Kg" variant="outlined"
+              value={empty} onInput={e => setempty(e.target.value)}/>
+              </Grid>
+             <Grid item xs={12} sm={6} md={6} lg={6}>
+                <TextField id="standard-basic" value={loaded} onInput={e => setloaded(e.target.value)}label="Loaded Wt in Kg"variant="outlined"  
+                />
+              </Grid>
+            </Grid>
+            <Grid container spacing={6}>
+              <Grid item xs={12} sm={6} md={6} lg={6} align='right'>
+                <TextField id="standard-basic" label="DL Num" variant="outlined"
+              value={dl} onInput={e => setdl(e.target.value)}/>
+              </Grid>
+             <Grid item xs={12} sm={6} md={6} lg={6}>
+                <TextField id="standard-basic" value={sto} onInput={e => setsto(e.target.value)}label="STO invoice" variant="outlined"  
+                />
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
+    <Grid container justify="center"  style={{ marginTop:30}} >
+     <Grid item>
+      <Button variant="contained" color="primary" style={{ marginLeft:0}} onClick={checklist} >
+        Checklist
+      </Button>
+    </Grid>
+     <Grid item>
+      <Button variant="contained" color="primary" style={{ marginLeft:25}} >
+        Barcode
+      </Button>
+    </Grid>
+    <Grid item>
+      <Button variant="contained" color="primary" style={{ marginLeft:25}}  onClick={Onclear}>
+        Clear
+      </Button>
+    </Grid>
+    <Grid item >
+      <Button variant="contained" color="primary" style={{ marginLeft:25}}>
+        Edit
+      </Button>
+    </Grid>
+    <Grid item>
+      <Button variant="contained" color="primary" style={{ marginLeft:25}}>
+        Submit
+      </Button>
+    </Grid>
+    <Grid item>
+      <Button variant="contained" color="primary" style={{ marginLeft:25}}>
+        Exit
+      </Button>
+    </Grid>
+    </Grid>
+  </form>
+  );
 }
-export default OSMVehicle
+

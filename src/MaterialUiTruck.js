@@ -15,7 +15,7 @@ import css from "./App.css"
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: -1,
-    width: 225,
+    width: 223,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -61,31 +61,32 @@ export default function MaterialUiTruck() {
 
   return (
      <form  noValidate autoComplete="off">
-    <Grid container justify="center" className="mainContainer" >
+    <Grid container justify="center" className="mainContainer" style={{ minHeight: "50vh" }} spacing={0} direction="column" alignItems="center"  >
       <Grid item  xs={6} sm={8} md={8} lg={8} >
         <Card>
           <CardContent>   
               <Grid container spacing={6} >
-                <Grid item xs={12} sm={6} md={6} lg={6}  align='right' >
-                  <FormControl variant="outlined" className={classes.formControl}>
-                    <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-                      Age
-                    </InputLabel>
-                    <Select
-                      labelId="demo-simple-select-outlined-label"
-                      id="demo-simple-select-outlined"
-                      value={sto}
-                   
-                      labelWidth={labelWidth}
-                    >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
-                  </FormControl>
+                <Grid item xs={12} sm={6} md={6} lg={6}    >
+                  <FormControl variant="outlined" className={classes.formControl} >
+                  <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+                  STO Invoice
+                    
+                  </InputLabel>
+                 <Select
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={sto}
+                    onChange={handleChange}
+                    labelWidth={labelWidth}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                 </Select>
+                </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6} >
                   <TextField id="standard-basic" label="Registration"   value={reg} onInput={e => setreg(e.target.value)}  variant="outlined"   
@@ -93,7 +94,7 @@ export default function MaterialUiTruck() {
                 </Grid>
               </Grid>
             <Grid container spacing={6}>
-              <Grid item xs={12} sm={6} md={6} lg={6} align='right'>
+              <Grid item xs={12} sm={6} md={6} lg={6}>
                 <TextField id="standard-basic" label="From Truck Number"  variant="outlined" value={fromtruck} onInput={e => setfromtruck(e.target.value)}
               />
               </Grid>
@@ -103,14 +104,14 @@ export default function MaterialUiTruck() {
               </Grid>
             </Grid>
             <Grid container spacing={6}>
-              <Grid item xs={12} sm={6} md={6} lg={6} align='right'>
-                <TextField id="standard-basic" label="From TransportVendor" variant="outlined" value={fromtransport} onInput={e => setfromtransport(e.target.value)}
+              <Grid item xs={12} sm={6} md={6} lg={6}>
+                <TextField id="standard-basic" label="FromTransportVendor" variant="outlined" value={fromtransport} onInput={e => setfromtransport(e.target.value)}
                />
              </Grid>
               <Grid item xs={12} sm={6} md={6} lg={6} >
                <FormControl variant="outlined" className={classes.formControl} >
                   <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-                  To
+                  To TransportVendor
                     
                   </InputLabel>
                  <Select
@@ -131,7 +132,7 @@ export default function MaterialUiTruck() {
               </Grid>
             </Grid>
             <Grid container spacing={6}>
-              <Grid item xs={12} sm={6} md={6} lg={6} align='right'>
+              <Grid item xs={12} sm={6} md={6} lg={6}>
                 <TextField id="standard-basic" label="Driver Name" variant="outlined"
               value={name} onInput={e => setname(e.target.value)}/>
               </Grid>
