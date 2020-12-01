@@ -50,14 +50,20 @@ class Search extends React.Component {
 	         <button type='submit'>Search</button>
 	          {this.state.search.map((s) => (
 	          	<Card  variant="outlined" style={{ width: '18rem' }}> 
-                <Grid  container
-                    direction="column"
-                    justify="center"
-                    alignItems="center"
-                  >
+               <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        style={{ minHeight: "100vh" }}
+      >
+        <Grid container item xs={12} spacing={8}>
+          <Grid item xs={6}>{s.id}
                    <Grid>{s.id}</Grid>
-                  <Grid>{s.login}</Grid>  
+                   </Grid>
                 </Grid> 
+                </Grid>
                </Card>     
 	          ))
 	      }

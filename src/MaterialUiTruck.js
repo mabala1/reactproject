@@ -61,7 +61,7 @@ export default function MaterialUiTruck() {
 
   return (
      <form  noValidate autoComplete="off">
-    <Grid container justify="center" className="mainContainer" style={{ minHeight: "50vh" }} spacing={0} direction="column" alignItems="center"  >
+    <Grid container justify="center" className="mainContainer" style={{ height: "50vh" }} spacing={0} direction="column" alignItems="center"  >
       <Grid item  xs={6} sm={8} md={8} lg={8} >
         <Card>
           <CardContent>   

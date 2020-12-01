@@ -24,15 +24,36 @@ const useStyles = makeStyles(theme => ({
 
 export default function OSMVehicle() {
   const classes = useStyles();
+  const WordSearch = require("@blex41/word-search");
+  const options = {
+  cols: 6,
+  rows: 6,
+  disabledDirections: ["N", "W", "NW", "SW"],
+  dictionary: ["Hello", "crêpe", "Škoda", "word", "search"],
+  maxWords: 20,
+  backwardsProbability: 0.3,
+  upperCase: true,
+  diacritics: true
+};
+ 
+// Create a new puzzle
+const ws = new WordSearch(options);
+ 
+// Use its methods
+console.log(ws.toString());
   const [trucktype, settrucktype] = React.useState('');
   const [vendor,setVendor ] = React.useState('');
+  const [triptype, setTripType] = useState('');
 
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
+  const inputTruck = React.useRef(null);
+  const [labelTruck, setLabelTruck] = React.useState(0);
+  const inputTrip = React.useRef(null);
+  const [labelTrip, setLabelTrip] = React.useState(0);
   const [reg, setreg] = useState('');
   const [regdate, setregdate] = useState('');
   const [truck, settruck] = useState('');
-  const [triptype, setTripType] = useState('');
   const [name, setname] = useState('');
   const [phone, setphone] = useState('');
   const [empty, setempty] = useState('');
@@ -42,13 +63,18 @@ export default function OSMVehicle() {
 
   React.useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
+    setLabelTruck(inputTruck.current.offsetWidth);
+    setLabelTrip(inputTrip.current.offsetWidth);
   }, []);
 
   const handletrucktype = event => {
     settrucktype(event.target.value);
   };
-   const handlevendor = event => {
+  const handlevendor = event => {
     setVendor(event.target.value);
+  };
+  const handletriptype = event => {
+    setTripType(event.target.value);
   };
 
   const checklist = event => {
@@ -74,22 +100,22 @@ export default function OSMVehicle() {
 
   return (
      <form  noValidate autoComplete="off">
-    <Grid container justify="center" className="mainContainer" >
+    <Grid container justify="center" className="mainContainer" style={{ marginTop: "10px" }} spacing={0} direction="column" alignItems="center" >
       <Grid item  xs={6} sm={8} md={8} lg={8} >
         <Card>
           <CardContent>   
               <Grid container spacing={6} >
-                <Grid item xs={12} sm={6} md={6} lg={6} align='right'>
+                <Grid item xs={12} sm={6} md={6} lg={6}>
                   <TextField id="standard-basic" label="Registration Doc"   value={reg} onInput={e => setreg(e.target.value)}  variant="outlined"   
                   />  
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6} >
-                  <TextField id="standard-basic" label="Registration Date"   value={regdate} onInput={e => setregdate(e.target.value)}  variant="outlined"   
+                  <TextField id="standard-basic" label="Registration Date"   value={'11'} onInput={e => setregdate(e.target.value)}  variant="outlined"   
                   />     
                 </Grid>
               </Grid>
             <Grid container spacing={6}>
-              <Grid item xs={12} sm={6} md={6} lg={6} align='right'>
+              <Grid item xs={12} sm={6} md={6} lg={6} >
                 <TextField id="standard-basic" label="Truck Number"  variant="outlined" value={truck} onInput={e => settruck(e.target.value)}
               />
               </Grid>
@@ -117,13 +143,30 @@ export default function OSMVehicle() {
               </Grid>
             </Grid>
             <Grid container spacing={6}>
-              <Grid item xs={12} sm={6} md={6} lg={6} align='right'>
-                <TextField id="standard-basic" label="Trip Type" variant="outlined" value={triptype} onInput={e => setTripType(e.target.value)}
-               />
+              <Grid item xs={12} sm={6} md={6} lg={6} >
+                <FormControl variant="outlined" className={classes.formControl} >
+                <InputLabel ref={inputTrip} id="demo-simple-select-outlined-label">
+                Trip Type
+                  
+                </InputLabel>
+               <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  value={triptype}
+                  onChange={handletriptype}
+                  labelWidth={labelTrip}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+               </Select>
+              </FormControl>  
              </Grid>
               <Grid item xs={12} sm={6} md={6} lg={6} >
                <FormControl variant="outlined" className={classes.formControl} >
-                <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+                <InputLabel ref={inputTruck} id="demo-simple-select-outlined-label">
                 Truck Type
                   
                 </InputLabel>
@@ -132,7 +175,7 @@ export default function OSMVehicle() {
                   id="demo-simple-select-outlined"
                   value={trucktype}
                   onChange={handletrucktype}
-                  labelWidth={labelWidth}
+                  labelWidth={labelTruck}
                 >
                   <MenuItem value="">
                     <em>None</em>
@@ -146,7 +189,7 @@ export default function OSMVehicle() {
               </Grid>
             </Grid>
             <Grid container spacing={6}>
-              <Grid item xs={12} sm={6} md={6} lg={6} align='right'>
+              <Grid item xs={12} sm={6} md={6} lg={6}>
                 <TextField id="standard-basic" label="Driver Name" variant="outlined"
               value={name} onInput={e => setname(e.target.value)}/>
               </Grid>
@@ -156,7 +199,7 @@ export default function OSMVehicle() {
               </Grid>
             </Grid>
             <Grid container spacing={6}>
-              <Grid item xs={12} sm={6} md={6} lg={6} align='right'>
+              <Grid item xs={12} sm={6} md={6} lg={6} >
                 <TextField id="standard-basic" label="Vehicle empty Wt in Kg" variant="outlined"
               value={empty} onInput={e => setempty(e.target.value)}/>
               </Grid>
@@ -166,7 +209,7 @@ export default function OSMVehicle() {
               </Grid>
             </Grid>
             <Grid container spacing={6}>
-              <Grid item xs={12} sm={6} md={6} lg={6} align='right'>
+              <Grid item xs={12} sm={6} md={6} lg={6} >
                 <TextField id="standard-basic" label="DL Num" variant="outlined"
               value={dl} onInput={e => setdl(e.target.value)}/>
               </Grid>
@@ -179,7 +222,7 @@ export default function OSMVehicle() {
         </Card>
       </Grid>
     </Grid>
-    <Grid container justify="center"  style={{ marginTop:30}} >
+    <Grid container justify="center"  style={{ marginTop:10}} >
      <Grid item>
       <Button variant="contained" color="primary" style={{ marginLeft:0}} onClick={checklist} >
         Checklist

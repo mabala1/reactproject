@@ -16,6 +16,10 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import RfidStatusReport from './RfidStatusReport';
 import VehicleStatusReport from './RfidStatusReport';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import WordList from './WordList/WordList';
+import game from './RfidStatusReport';
+import Grid from './Grid/Grid';
+
 
 
 class App extends React.Component{
@@ -69,6 +73,7 @@ class App extends React.Component{
             <Route exact path="/truck" component={MaterialUiTruck} />
             <Route exact path="/rfid_status_report" component={RfidStatusReport} />
             <Route exact path="/vehicle_status_report" component={VehicleStatusReport} />
+             <Route exact path="/word" component={WordList} />
             <Route exact path="/app" component={k} />
           </Router>   
         </ main>

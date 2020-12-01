@@ -1,0 +1,23 @@
+.WordList {
+  list-style: none;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px;
+  columns: 3;
+}
+
+.WordList li {
+  display: block;
+  padding: 3px 0;
+  text-align: center;
+  cursor: default;
+}
+
+.WordList .hinted {
+  background-color: orange;
+}
+
+.WordList .solved {
+  text-decoration: line-through;
+}

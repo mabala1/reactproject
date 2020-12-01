@@ -10,6 +10,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { borders } from '@material-ui/system';
+import axios from 'axios';
 
 
 
@@ -55,9 +56,41 @@ class MaterialUiTruck extends React.Component {
 
 
 
+   submitHandler = e =>{
+    //  const osm_issue_hdr = {
+    //   trns_doc_no: this.state.reg
+    // };
+
+
+
+
+     const params = new URLSearchParams();
+      params.set('trns_doc_no', this.state.sto_name);
+      const osm_issue_hdr = new URLSearchParams();
+      osm_issue_hdr.set('osm_issue_hdr',params)
+        axios({
+        method: 'post',
+        url: `http://localhost:1000/api/osm_issue_hdrs`,
+        data: params
+      })
+        .then(response =>{
+        
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
+
+
+    // {"osm_issue_hdr"=>{"trns_doc_no"=>"11"}}
+
+    //  {"osm_issue_hdr"=>"trns_doc_no=1111"}
+
+
+
+
+
  render() {
-    console.log(this.state.sto_name)
-  console.log(this.state.vendor_name)
   return (
   <form  noValidate autoComplete="off">
    <Card style={{padding:20,marginLeft:200,marginRight:200,marginTop:30, boxShadow: 'rgba(189, 195, 199, 1) 0px 1px 6px, rgba(189, 195, 199, 1) 0px 1px 4px'}}>
@@ -150,7 +183,7 @@ class MaterialUiTruck extends React.Component {
       </Button>
     </Grid>
     <Grid item>
-      <Button variant="contained" color="primary" style={{ marginLeft:25}}>
+      <Button variant="contained" color="primary" style={{ marginLeft:25}} onClick={this.submitHandler}>
         Submit
       </Button>
     </Grid>
